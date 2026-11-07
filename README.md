@@ -54,6 +54,8 @@ src/main/java/com/school/classboard
 └── ui/                         Vaadin 页面（班牌、签到、新闻、食堂、点歌、公告、课表、登录、终端）
     └── admin/                  后台管理页面
 src/main/resources/application.yml
+database/                        MySQL 结构/演示数据导出脚本
+docs/classboard-intro.html       单文件项目介绍页
 ```
 
 ## 快速开始
@@ -74,6 +76,12 @@ start.bat --no-browser   # 只启动，不打开浏览器（服务器/调试时�
 ```
 
 数据库口令默认 `root / 1234`，可在 `start.bat` 顶部的 `MYSQL_USER` / `MYSQL_PASSWORD` 处修改，或先设置同名环境变量覆盖。MySQL 没有启动时应用会启动失败，脚本会提示先用 `net start MySQL8.0` 启动服务。
+
+数据库脚本在 [`database/`](database/) 目录：`classboard.sql` 是完整结构 + 当前演示数据，`classboard-schema.sql` 是纯表结构。新机器可以直接导入：
+
+```powershell
+mysql -uroot -p < database/classboard.sql
+```
 
 ### 手动启动
 
