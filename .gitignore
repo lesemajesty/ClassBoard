@@ -1,0 +1,30 @@
+# Build output
+target/
+*.class
+
+# Vaadin generated frontend bundle (recreated by Maven)
+src/main/frontend/generated/
+src/main/frontend/index.html
+
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local runtime data
+uploads/*
+!uploads/.gitkeep
+logs/
+*.log
+
+# Local secrets / overrides
+.env
+application-local.yml
+application-local.properties

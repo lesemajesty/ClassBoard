@@ -1,0 +1,67 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+    # 班牌终端长期挂着，会话超时设长一些，避免教室终端掉线
+    session:
+      timeout: 12h
+
+spring:
+  application:
+    name: electronic-class-board
+
+  # ===== MySQL 数据源 =====
+  # 可通过环境变量 MYSQL_USER / MYSQL_PASSWORD 覆盖，避免把口令写死在代码里
+  datasource:
+    url: jdbc:mysql://localhost:3306/classboard?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:1234}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+
+  jpa:
+    hibernate:
+      # 首次启动自动建表；表结构稳定后建议改为 validate / none，用 SQL 脚本管理
+      ddl-auto: update
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+vaadin:
+  # 开发时是否自动打开浏览器
+  launch-browser: false
+
+# ===== 校园生活模块 =====
+classboard:
+  # 上传图片保存目录（相对项目根目录）
+  upload-dir: uploads
+  news:
+    # 是否定时同步新华网 / 人民网 / 中国教育新闻网的教育新闻；断网时跳过
+    sync-enabled: true
+  demo:
+    # 缺少时补充高一(1)(2)(4)(5)(6)班演示数据（已有班级不受影响）
+    multi-class-enabled: true
+  weather:
+    # 是否从 Open-Meteo 拉取实时天气；断网时自动沿用本地数据
+    enabled: true
+    city: 杭州
+    latitude: 30.2741
+    longitude: 120.1551
+  announcement:
+    # 过期公告自动下线的检查间隔
+    cleanup-initial-delay-ms: 15000
+    cleanup-ms: 3600000
+  checkin:
+    # 晚于该时间刷卡视为迟到
+    late-time: "07:30"
+
+logging:
+  level:
+    root: info
+    com.school.classboard: debug
